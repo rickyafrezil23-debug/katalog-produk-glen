@@ -1,17 +1,28 @@
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ChevronRight, PlusCircle } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const mockCategories = ["Elektronik", "Fashion", "Perabotan", "Otomotif"];
 
 const Categories = () => {
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
+
   return (
     <div>
-      <h2 className="mb-4 text-2xl font-bold">Kategori Produk</h2>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Kategori Produk</h2>
+        {isAdmin && (
+          <Button size="sm">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Tambah
+          </Button>
+        )}
+      </div>
       <Card>
         <CardContent className="p-0">
           <ul className="divide-y">

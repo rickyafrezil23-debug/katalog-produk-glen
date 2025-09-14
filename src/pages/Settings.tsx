@@ -44,6 +44,23 @@ const Settings = () => {
 
       <Card>
         <CardHeader>
+          <CardTitle>Latar Belakang Aplikasi</CardTitle>
+          <CardDescription>
+            Pilih warna latar belakang utama aplikasi. Fitur ini akan segera tersedia.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-4">
+            <div className="h-10 w-10 cursor-pointer rounded-full border-2 border-primary bg-white" title="Default"></div>
+            <div className="h-10 w-10 cursor-pointer rounded-full bg-slate-100" title="Slate"></div>
+            <div className="h-10 w-10 cursor-pointer rounded-full bg-blue-50" title="Blue"></div>
+            <div className="h-10 w-10 cursor-pointer rounded-full bg-green-50" title="Green"></div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
           <CardTitle>Manajemen Pengguna</CardTitle>
           <CardDescription>
             Tambah admin baru ke sistem.
