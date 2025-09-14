@@ -10,8 +10,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Pencil, PlusCircle, Trash2 } from "lucide-react";
+import { Pencil, PlusCircle, Search, Trash2 } from "lucide-react";
 import { ProductFormDialog } from "@/components/ProductFormDialog";
+import { Input } from "@/components/ui/input";
 
 const mockProducts = [
   {
@@ -44,6 +45,11 @@ const Products = () => {
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredProducts = mockProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -57,7 +63,17 @@ const Products = () => {
             </Button>
           )}
         </div>
-        {mockProducts.map((product) => (
+        <div className="relative">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Cari produk..."
+            className="w-full rounded-lg bg-background pl-8"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        {filteredProducts.map((product) => (
           <Card key={product.id}>
             <CardHeader>
               <div className="flex items-start gap-4">
