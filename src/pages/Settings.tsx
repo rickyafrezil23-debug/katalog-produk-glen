@@ -13,6 +13,16 @@ import { Textarea } from "@/components/ui/textarea";
 
 const Settings = () => {
   // NOTE: Fungsionalitas akan ditambahkan setelah koneksi ke Supabase
+  const handleGeneralSettings = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Menyimpan pengaturan umum...");
+  };
+
+  const handleLoginSettings = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Menyimpan pengaturan halaman login...");
+  };
+
   const handleAddAdmin = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Menambahkan admin baru...");
@@ -23,14 +33,27 @@ const Settings = () => {
     console.log("Mengubah password...");
   };
 
-  const handleLoginSettings = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Menyimpan pengaturan halaman login...");
-  };
-
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Pengaturan Admin</h2>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Pengaturan Umum</CardTitle>
+          <CardDescription>
+            Atur judul utama yang tampil di header aplikasi.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleGeneralSettings} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="app-title">Judul Aplikasi</Label>
+              <Input id="app-title" defaultValue="Katalog Produk" />
+            </div>
+            <Button type="submit">Simpan Pengaturan</Button>
+          </form>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
