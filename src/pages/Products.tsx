@@ -7,6 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Pencil, PlusCircle, Trash2 } from "lucide-react";
 
 const mockProducts = [
   {
@@ -36,9 +39,20 @@ const mockProducts = [
 ];
 
 const Products = () => {
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
+
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Daftar Produk</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Daftar Produk</h2>
+        {isAdmin && (
+          <Button size="sm">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Tambah
+          </Button>
+        )}
+      </div>
       {mockProducts.map((product) => (
         <Card key={product.id}>
           <CardHeader>
@@ -57,8 +71,18 @@ const Products = () => {
           <CardContent>
             <p className="text-sm text-muted-foreground">{product.spec}</p>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex items-center justify-between">
             <Badge>{product.category}</Badge>
+            {isAdmin && (
+              <div className="flex gap-2">
+                <Button variant="outline" size="icon">
+                  <Pencil className="h-4 w-4" />
+                </Button>
+                <Button variant="destructive" size="icon">
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
           </CardFooter>
         </Card>
       ))}
