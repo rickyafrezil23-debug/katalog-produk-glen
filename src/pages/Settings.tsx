@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
 
 const Settings = () => {
   // NOTE: Fungsionalitas akan ditambahkan setelah koneksi ke Supabase
@@ -22,9 +23,44 @@ const Settings = () => {
     console.log("Mengubah password...");
   };
 
+  const handleLoginSettings = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Menyimpan pengaturan halaman login...");
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Pengaturan Admin</h2>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Pengaturan Halaman Login</CardTitle>
+          <CardDescription>
+            Kustomisasi tampilan halaman login untuk pengguna.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleLoginSettings} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="login-title">Judul Halaman</Label>
+              <Input id="login-title" defaultValue="Selamat Datang Kembali" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="login-desc">Deskripsi Halaman</Label>
+              <Textarea id="login-desc" defaultValue="Masuk untuk mengakses katalog produk eksklusif kami." />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="login-logo">Logo</Label>
+              <Input id="login-logo" type="file" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="login-bg">Gambar Latar</Label>
+              <Input id="login-bg" type="file" />
+            </div>
+            <Button type="submit">Simpan Pengaturan Login</Button>
+          </form>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
@@ -37,7 +73,6 @@ const Settings = () => {
           <div className="flex items-center justify-between">
             <Label htmlFor="dark-mode">Mode Gelap</Label>
             <Switch id="dark-mode" disabled />
-            {/* Fungsionalitas tema akan ditambahkan nanti */}
           </div>
         </CardContent>
       </Card>

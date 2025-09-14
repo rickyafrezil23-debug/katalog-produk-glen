@@ -1,8 +1,10 @@
 import { Outlet } from "react-router-dom";
 
 export function AuthLayout() {
+  // Layout ini sekarang memberikan kontrol penuh ke halaman di dalamnya
+  // agar bisa membuat desain full-screen seperti halaman login.
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-100 p-4 dark:bg-gray-950">
+    <div className="min-h-screen w-full">
       <Outlet />
     </div>
   );
