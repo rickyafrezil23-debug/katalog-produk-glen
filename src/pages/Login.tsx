@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { showError } from "@/utils/toast";
 
 const Login = () => {
@@ -73,7 +73,15 @@ const Login = () => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm text-primary underline-offset-4 hover:underline"
+                  >
+                    Lupa Password?
+                  </Link>
+                </div>
                 <Input
                   id="password"
                   type="password"
