@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AuthLayout } from "./components/AuthLayout";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/comments" element={<Comments />} />
+                <Route path="/settings" element={<Settings />} />
               </Route>
             </Route>
             

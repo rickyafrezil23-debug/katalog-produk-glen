@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Pencil, PlusCircle, Trash2 } from "lucide-react";
+import { ProductFormDialog } from "@/components/ProductFormDialog";
 
 const mockProducts = [
   {
@@ -41,52 +43,61 @@ const mockProducts = [
 const Products = () => {
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Daftar Produk</h2>
-        {isAdmin && (
-          <Button size="sm">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Tambah
-          </Button>
-        )}
+    <>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Daftar Produk</h2>
+          {isAdmin && (
+            <Button size="sm" onClick={() => setIsDialogOpen(true)}>
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Tambah
+            </Button>
+          )}
+        </div>
+        {mockProducts.map((product) => (
+          <Card key={product.id}>
+            <CardHeader>
+              <div className="flex items-start gap-4">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="h-20 w-20 rounded-md object-cover"
+                />
+                <div className="flex-1">
+                  <CardTitle>{product.name}</CardTitle>
+                  <CardDescription>{product.price}</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">{product.spec}</p>
+            </CardContent>
+            <CardFooter className="flex items-center justify-between">
+              <Badge>{product.category}</Badge>
+              {isAdmin && (
+                <div className="flex gap-2">
+                  <Button variant="outline" size="icon">
+                    <Pencil className="h-4 w-4" />
+                  </Button>
+                  <Button variant="destructive" size="icon">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </CardFooter>
+          </Card>
+        ))}
       </div>
-      {mockProducts.map((product) => (
-        <Card key={product.id}>
-          <CardHeader>
-            <div className="flex items-start gap-4">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="h-20 w-20 rounded-md object-cover"
-              />
-              <div className="flex-1">
-                <CardTitle>{product.name}</CardTitle>
-                <CardDescription>{product.price}</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">{product.spec}</p>
-          </CardContent>
-          <CardFooter className="flex items-center justify-between">
-            <Badge>{product.category}</Badge>
-            {isAdmin && (
-              <div className="flex gap-2">
-                <Button variant="outline" size="icon">
-                  <Pencil className="h-4 w-4" />
-                </Button>
-                <Button variant="destructive" size="icon">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            )}
-          </CardFooter>
-        </Card>
-      ))}
-    </div>
+      {isAdmin && (
+        <ProductFormDialog
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+        />
+      )}
+    </>
   );
 };
 
