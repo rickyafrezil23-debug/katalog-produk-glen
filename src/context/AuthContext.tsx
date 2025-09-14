@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 interface AuthContextType {
   user: any;
   login: (email: string, pass: string) => Promise<boolean>;
+  register: (email: string, pass: string) => Promise<boolean>;
   logout: () => void;
   loading: boolean;
 }
@@ -37,13 +38,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
+  const register = async (email: string, pass: string) => {
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500)); // Simulasi request jaringan
+    // Di aplikasi nyata, Anda akan memeriksa apakah email sudah ada sebelum mendaftar
+    console.log(`Mendaftarkan pengguna: ${email} dengan password: ${pass}`);
+    const newUser = { email, role: "user" }; // Pengguna baru selalu memiliki peran 'user'
+    setUser(newUser);
+    setLoading(false);
+    return true;
+  };
+
   const logout = () => {
     setUser(null);
     navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

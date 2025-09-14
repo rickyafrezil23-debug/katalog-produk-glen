@@ -92,10 +92,16 @@ const Login = () => {
                 />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex-col items-center gap-4">
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Memproses..." : "Login"}
               </Button>
+              <p className="text-sm text-muted-foreground">
+                Belum punya akun?{" "}
+                <Link to="/register" className="text-primary underline-offset-4 hover:underline">
+                  Daftar
+                </Link>
+              </p>
             </CardFooter>
           </form>
         </Card>
